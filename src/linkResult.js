@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import axios from "axios";
+const shortId = require("shortid");
 
 function LinkResult({inputValue}) {
   const [shortenLink, setShortenLink] = useState("");
@@ -14,6 +15,7 @@ function LinkResult({inputValue}) {
       const res = await axios(
         `https://api.shrtco.de/v2/shorten?url=${inputValue}`
       );
+      console.log(res);
       setShortenLink(res.data.result.full_short_link);
       try {
         const resp = await axios.post("http://localhost:5000/api/short", {
@@ -25,6 +27,7 @@ function LinkResult({inputValue}) {
         console.log(error);
       }
     } catch (error) {
+      console.log(error);
       setError(error);
     } finally {
       setLoading(false);

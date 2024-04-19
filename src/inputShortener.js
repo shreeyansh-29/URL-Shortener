@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import "./App.css";
 
-function InputShortener({setInputValue}) {
+function InputShortener({setInputValue, setFlag}) {
   const [value, setValue] = useState("");
 
   const handleClick = async () => {
     setInputValue(value);
     setValue("");
+    setFlag(true)
   };
 
   return (

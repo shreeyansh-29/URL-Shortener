@@ -2,15 +2,16 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const UrlTable = () => {
+const UrlTable = ({flag}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     (async () => {
+      setData([]);
       const res = await axios.get("http://localhost:5000/api/short");
       setData(res.data);
     })();
-  }, []);
+  }, [flag]);
 
   const handleClick = async (e) => {
     try {
@@ -21,7 +22,7 @@ const UrlTable = () => {
     }
   };
 
-  return data && data.length !== 0 ? (
+  return (
     <div
       style={{
         width: "80%",
@@ -39,30 +40,32 @@ const UrlTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((ele) => {
-            return (
-              <tr key={ele._id}>
-                <td>
-                  <a href={ele.full} target="_blank">
-                    {ele.full}
-                  </a>
-                </td>
-                <td>
-                  <a
-                    href={ele.short}
-                    target="_blank"
-                    onClick={() => handleClick(ele._id)}
-                  >
-                    {ele.short}
-                  </a>
-                </td>
-                <td>{ele.clicks}</td>
-              </tr>
-            );
-          })}
+          {data &&
+            data.length !== 0 &&
+            data.map((ele) => {
+              return (
+                <tr key={ele._id}>
+                  <td>
+                    <a href={ele.full} target="_blank">
+                      {ele.full}
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      href={ele.short}
+                      target="_blank"
+                      onClick={() => handleClick(ele._id)}
+                    >
+                      {ele.short}
+                    </a>
+                  </td>
+                  <td>{ele.clicks}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>
-  ) : null;
+  );
 };
 export default UrlTable;

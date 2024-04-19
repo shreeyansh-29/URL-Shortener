@@ -7,22 +7,23 @@ import UrlTable from "./urlTable";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
+  const [flag, setFlag] = useState(false)
 
   return (
     <>
       <div className="container">
-        <InputShortener setInputValue={setInputValue} />
+        <InputShortener setInputValue={setInputValue} setFlag={setFlag} />
         <BackgroundAnimate />
         <LinkResult inputValue={inputValue} />
       </div>
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "center",
         }}
       >
-        <UrlTable />
-      </div>
+        <UrlTable flag={flag} />
+      </div> */}
     </>
   );
 }
